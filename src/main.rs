@@ -1,10 +1,10 @@
 use anyhow::Result;
 use tracing::*;
 
-use throwsterhouse_five::config::Config;
-use throwsterhouse_five::server::Server;
-use throwsterhouse_five::setting::Setting;
-use throwsterhouse_five::terminator;
+use the_catcher_in_the_lie::config::Config;
+use the_catcher_in_the_lie::server::Server;
+use the_catcher_in_the_lie::setting::Setting;
+use the_catcher_in_the_lie::terminator;
 
 #[tokio::main]
 async fn main() -> Result<()> {

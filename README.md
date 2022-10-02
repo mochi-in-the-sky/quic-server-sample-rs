@@ -7,6 +7,6 @@
 
 | 設定名 | 初期値 | 内容 |
 | ------| ------| ------|
-| THROWSTERHOUSE_FIVE_BIND_PORT | 7777 | ポート番号 |
-| THROWSTERHOUSE_FIVE_CERT_PATH | オレオレ | 証明書パス |
-| THROWSTERHOUSE_FIVE_KEY_PATH | オレオレ | 秘密鍵パス |
+| THE_CATCHER_IN_THE_LIE_BIND_PORT | 7777 | ポート番号 |
+| THE_CATCHER_IN_THE_LIE_CERT_PATH | オレオレ | 証明書パス |
+| THE_CATCHER_IN_THE_LIE_KEY_PATH | オレオレ | 秘密鍵パス |

@@ -3,7 +3,7 @@ use serde::Deserialize;
 use std::path::PathBuf;
 use tracing::*;
 
-const ENV_PREFIX: &str = "THROWSTERHOUSE_FIVE_";
+const ENV_PREFIX: &str = "THE_CATCHER_IN_THE_LIE_";
 const DEFAULT_BIND_PORT: u16 = 7777;
 
 #[derive(Deserialize, Debug, Clone)]
@@ -43,36 +43,36 @@ mod tests {
 
     #[test]
     fn test_env() {
-        std::env::set_var("THROWSTERHOUSE_FIVE_BIND_PORT", "7777");
+        std::env::set_var("THE_CATCHER_IN_THE_LIE_BIND_PORT", "7777");
         let config = Config::new().unwrap();
         assert_eq!(config.bind_port, 7777);
 
-        std::env::set_var("THROWSTERHOUSE_FIVE_BIND_PORT", "160000000");
+        std::env::set_var("THE_CATCHER_IN_THE_LIE_BIND_PORT", "160000000");
         let config = Config::new();
         assert!(config.is_err());
 
-        std::env::remove_var("THROWSTERHOUSE_FIVE_BIND_PORT");
+        std::env::remove_var("THE_CATCHER_IN_THE_LIE_BIND_PORT");
         let config = Config::new().unwrap();
         assert_eq!(config.bind_port, 7777);
 
-        std::env::set_var("THROWSTERHOUSE_FIVE_CERT_PATH", "/tmp/oreore.cert");
+        std::env::set_var("THE_CATCHER_IN_THE_LIE_CERT_PATH", "/tmp/oreore.cert");
         let config = Config::new();
         assert!(config.is_err());
-        std::env::remove_var("THROWSTERHOUSE_FIVE_CERT_PATH");
+        std::env::remove_var("THE_CATCHER_IN_THE_LIE_CERT_PATH");
 
-        std::env::set_var("THROWSTERHOUSE_FIVE_KEY_PATH", "/tmp/oreore.key");
+        std::env::set_var("THE_CATCHER_IN_THE_LIE_KEY_PATH", "/tmp/oreore.key");
         let config = Config::new();
         assert!(config.is_err());
-        std::env::remove_var("THROWSTERHOUSE_FIVE_KEY_PATH");
+        std::env::remove_var("THE_CATCHER_IN_THE_LIE_KEY_PATH");
 
-        std::env::set_var("THROWSTERHOUSE_FIVE_CERT_PATH", "tests/cert/oreore.cert");
+        std::env::set_var("THE_CATCHER_IN_THE_LIE_CERT_PATH", "tests/cert/oreore.cert");
         let config = Config::new();
         assert!(config.is_ok());
-        std::env::remove_var("THROWSTERHOUSE_FIVE_CERT_PATH");
+        std::env::remove_var("THE_CATCHER_IN_THE_LIE_CERT_PATH");
 
-        std::env::set_var("THROWSTERHOUSE_FIVE_KEY_PATH", "tests/cert/oreore.key");
+        std::env::set_var("THE_CATCHER_IN_THE_LIE_KEY_PATH", "tests/cert/oreore.key");
         let config = Config::new();
         assert!(config.is_ok());
-        std::env::remove_var("THROWSTERHOUSE_FIVE_KEY_PATH");
+        std::env::remove_var("THE_CATCHER_IN_THE_LIE_KEY_PATH");
     }
 }

@@ -66,13 +66,13 @@ mod tests {
 
     #[test]
     fn test_env() {
-        std::env::set_var("THROWSTERHOUSE_FIVE_BIND_PORT", "7777");
+        std::env::set_var("THE_CATCHER_IN_THE_LIE_BIND_PORT", "7777");
         let config1 = Config::new().unwrap();
         let setting1 = Setting::new(config1.clone()).unwrap();
         assert_eq!(Ok(setting1.addr), "0.0.0.0:7777".parse());
 
-        std::env::set_var("THROWSTERHOUSE_FIVE_CERT_PATH", "tests/cert/oreore.cert");
-        std::env::set_var("THROWSTERHOUSE_FIVE_KEY_PATH", "tests/cert/oreore.key");
+        std::env::set_var("THE_CATCHER_IN_THE_LIE_CERT_PATH", "tests/cert/oreore.cert");
+        std::env::set_var("THE_CATCHER_IN_THE_LIE_KEY_PATH", "tests/cert/oreore.key");
         let config2 = Config::new().unwrap();
         let setting2 = Setting::new(config2.clone()).unwrap();
 
