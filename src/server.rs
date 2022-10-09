@@ -1,6 +1,6 @@
 use anyhow::Result;
 use futures::StreamExt;
-use quinn::{Connecting, Endpoint, RecvStream, SendStream, ServerConfig};
+use quinn::{Connecting, Endpoint, NewConnection, ServerConfig};
 use tracing::*;
 
 use super::setting::Setting;
@@ -35,28 +35,30 @@ impl Server {
     }
 
     async fn handler(conn: Connecting) -> Result<()> {
-        let (sender, reciever) = conn.await?.connection.open_bi().await?;
+        info!("handler start");
 
-        let (ret_recv, ret_send) = tokio::join!(Self::recv(reciever), Self::send(sender));
-        if let Err(e) = ret_recv {
-            error!("catcher failed: {:?}", e);
+        let NewConnection {
+            connection,
+            mut uni_streams,
+            ..
+        } = conn.await?;
+        info!("connected from {}", connection.remote_address());
+
+        if let Some(uni_streams) = uni_streams.next().await {
+            let uni_stream = uni_streams?;
+            let data = uni_stream.read_to_end(0xFF).await?;
+            info!("received \"{}\"", String::from_utf8_lossy(&data));
+
+            let mut send_stream = connection.open_uni().await?;
+            send_stream.write(&data).await?;
+            send_stream.finish().await?;
+            connection.close(0u8.into(), &[]);
+        } else {
+            error!("cannot open uni stream");
         }
-        if let Err(e) = ret_send {
-            error!("pitcher failed: {:?}", e);
-        }
 
-        Ok(())
-    }
+        info!("handler end");
 
-    async fn recv(reciever: RecvStream) -> Result<()> {
-        let received = reciever.read_to_end(10).await?;
-        info!("catch: {:?}", received);
-        Ok(())
-    }
-
-    async fn send(mut sender: SendStream) -> Result<()> {
-        sender.write_all(b"Hello World").await?;
-        sender.finish().await?;
         Ok(())
     }
 }
